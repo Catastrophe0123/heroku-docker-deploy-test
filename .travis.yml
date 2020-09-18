@@ -1,0 +1,20 @@
+language: nodejs
+
+services:
+    - docker
+before_install:
+    - curl https://cli-assets.heroku.com/install.sh | sh
+    # - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    # - docker build -t registry.heroku.com/stormy-reaches-59776/web .
+
+script:
+    - heroku container:login
+    - heroku container:push web
+    # - docker push registry.heroku.com/stormy-reaches-59776/web .
+
+deploy:
+    skip_cleanup: true
+    provider: script
+    script: heroku container:release web
+    on:
+        branch: master
