@@ -1,6 +1,10 @@
 sudo: required
 language: nodejs
 
+branches:
+    only:
+        - master
+
 services:
     - docker
 before_install:
@@ -11,11 +15,11 @@ before_install:
 script:
     - heroku container:login
     - heroku container:push web -a stormy-reaches-59776
+    - heroku container:release web -a stormy-reaches-59776
     # - docker push registry.heroku.com/stormy-reaches-59776/web .
-
-deploy:
-    skip_cleanup: true
-    provider: script
-    script: heroku container:release web -a stormy-reaches-59776
-    on:
-        branch: master
+# deploy:
+#     skip_cleanup: true
+#     provider: script
+#     script:
+#     on:
+#         branch: master
